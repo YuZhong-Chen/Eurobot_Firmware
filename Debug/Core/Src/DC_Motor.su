@@ -1,9 +1,9 @@
 ../Core/Src/DC_Motor.cpp:19:6:void DC_Motor::Init()	8	static
 ../Core/Src/DC_Motor.cpp:36:6:void DC_Motor::Motor::Init(short int, TIM_HandleTypeDef*, double, double, double)	48	static
 ../Core/Src/DC_Motor.cpp:44:6:void DC_Motor::Motor::UpdatePID()	32	static
-../Core/Src/DC_Motor.cpp:88:6:void DC_Motor::Motor::UpdateVnow()	16	static
-../Core/Src/DC_Motor.cpp:99:6:void DC_Motor::Motor::SetVgoal(double)	24	static
-../Core/Src/DC_Motor.cpp:103:6:void DC_Motor::Motor::Record_CNT()	16	static
-../Core/Src/DC_Motor.cpp:107:6:void DC_Motor::Motor::Reset_CNT()	16	static
-../Core/Src/DC_Motor.cpp:111:8:double DC_Motor::Motor::MoveDis()	24	static
-../Core/Src/DC_Motor.cpp:119:8:double DC_Motor::Motor::GetVnow()	16	static
+../Core/Src/DC_Motor.cpp:93:6:void DC_Motor::Motor::UpdateVnow()	16	static
+../Core/Src/DC_Motor.cpp:108:6:void DC_Motor::Motor::SetVgoal(double)	24	static
+../Core/Src/DC_Motor.cpp:112:6:void DC_Motor::Motor::Record_CNT()	16	static
+../Core/Src/DC_Motor.cpp:116:6:void DC_Motor::Motor::Reset_CNT()	16	static
+../Core/Src/DC_Motor.cpp:120:8:double DC_Motor::Motor::MoveDis()	24	static
+../Core/Src/DC_Motor.cpp:128:8:double DC_Motor::Motor::GetVnow()	16	static

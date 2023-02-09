@@ -57,27 +57,32 @@ void Motor::UpdatePID() {
 	this->i += this->I * this->error * COUNT_TIME;
 
 	// Limit I in range
-	if (this->i > this->I_lim)
-		this->i = this->I_lim;
-	else if (this->i < 0 - this->I_lim)
-		this->i = 0 - this->I_lim;
+//	if (this->i > this->I_lim)
+//		this->i = this->I_lim;
+//	else if (this->i < 0 - this->I_lim)
+//		this->i = 0 - this->I_lim;
 
 	// Count D
-	d = this->D * (this->error - this->error_before) / COUNT_TIME;
+//	d = this->D * (this->error - this->error_before) / COUNT_TIME;
+	d = 0;
 
 	// Output = P + I + D
-	this->u = (double) p / 100 + this->i / 100 + d / 10000;
+	this->u = (double) p + this->i + d;
+//	if (num == 0 && isMove == true)
+//		this->u = 1.0;
+//	else
+//		this->u = 0.0;
 
 	// Filter ( Optional )
-	this->u = this->prev_u * 0.98 + this->u * 0.02;
+//	this->u = this->prev_u * 0.98 + this->u * 0.02;
 
 	// Limit output in range
-	if (this->u < -0.6) {
-		this->u = -0.6;
-	}
-	else if (this->u > 0.6) {
-		this->u = 0.6;
-	}
+//	if (this->u < -0.6) {
+//		this->u = -0.6;
+//	}
+//	else if (this->u > 0.6) {
+//		this->u = 0.6;
+//	}
 
 	// Record Prev output
 	this->prev_u = this->u;
@@ -91,6 +96,10 @@ void Motor::UpdateVnow() {
 
 	Record_CNT();
 	Vnow = CNT * CONST_FOR_MOTOR[num];  // Unit : m / s
+
+//	if (isMove && num == 0 && DC_index < 2000) {
+//		DC_motor_Vnow[DC_index++] = Vnow;
+//	}
 
 	// Finally, reset the counter CNT
 	__HAL_TIM_SET_COUNTER(TIM, 0);

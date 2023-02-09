@@ -42,6 +42,8 @@ public:
 	Motor() {
 	}
 
+	bool isMove = false;
+
 	// Initialize motor data
 	void Init(short num, TIM_HandleTypeDef *TIM, double P, double I, double D);
 
@@ -84,6 +86,9 @@ private:
 	double i = 0;
 	double error = 0, error_before = 0;
 	double prev_u;
+
+	double DC_motor_Vnow[2000];
+	int DC_index = 0;
 };
 
 /**
@@ -95,7 +100,7 @@ private:
  * */
 void Init();
 
-const double CONST_FOR_MOTOR[4] = { -ROUND / RES_Ratio, ROUND / RES_Ratio, -ROUND / RES_Ratio, ROUND / RES_Ratio };
+const double CONST_FOR_MOTOR[4] = { ROUND / RES_Ratio, -ROUND / RES_Ratio, ROUND / RES_Ratio, -ROUND / RES_Ratio };
 
 }
 

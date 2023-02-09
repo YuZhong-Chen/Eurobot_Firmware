@@ -13,9 +13,9 @@ ros::NodeHandle nh;
 geometry_msgs::Twist CarVnow;
 static CAR_INFO NowCarInfo;
 
-ros::Subscriber<geometry_msgs::Twist> CarVelSub("Omni_Vgoal", ROS::GoalVel_CB);
+ros::Subscriber<geometry_msgs::Twist> CarVelSub("cmd_vel", ROS::GoalVel_CB);
 
-ros::Publisher CarVelPub("Omni_Vnow", &CarVnow);
+ros::Publisher CarVelPub("Toposition", &CarVnow);
 
 void ROS::GoalVel_CB(const geometry_msgs::Twist &msg) {
 	omni.SetGoalCarInfo(msg.linear.x, msg.linear.y, msg.angular.z);

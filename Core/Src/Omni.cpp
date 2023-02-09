@@ -19,10 +19,10 @@ Omni::Omni() {
 }
 
 void Omni::Init() {
-	this->motors[0].Init(0, &htim2, 500., 1500., 60.);
-	this->motors[1].Init(1, &htim5, 500., 1500., 60.);
-	this->motors[2].Init(2, &htim3, 500., 1500., 60.);
-	this->motors[3].Init(3, &htim4, 500., 1500., 60.);
+	this->motors[0].Init(0, &htim2, 3.7, 471.0, 0.);
+	this->motors[1].Init(1, &htim5, 3.7, 471.0, 0.);
+	this->motors[2].Init(2, &htim3, 3.7, 471.0, 0.);
+	this->motors[3].Init(3, &htim4, 3.7, 471.0, 0.);
 
 	DC_Motor::Init();
 }
@@ -42,8 +42,8 @@ void Omni::UpdateNowCarInfo() {
 	// Unit : m/s , rad/s
 	this->UpdateMotorVnow();
 
-	NowCarInfo.Vx = (motors[3].GetVnow() - motors[1].GetVnow());
-	NowCarInfo.Vy = (motors[0].GetVnow() - motors[2].GetVnow());
+	NowCarInfo.Vx = (motors[3].GetVnow() - motors[1].GetVnow()) / 2.;
+	NowCarInfo.Vy = (motors[0].GetVnow() - motors[2].GetVnow()) / 2.;
 	NowCarInfo.Omega = (motors[0].GetVnow() + motors[1].GetVnow() + motors[2].GetVnow() + motors[3].GetVnow()) * CarRadius;
 }
 
@@ -71,10 +71,10 @@ void Omni::UpdateMotorVnow() {
 // TODO : Check for the DIR
 void Omni::Move() {
 	// DIR
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, (motors[0].u > 0) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, (motors[1].u > 0) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, (motors[2].u > 0) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, (motors[3].u > 0) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_8, (motors[0].u > 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, (motors[1].u > 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, (motors[2].u > 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, (motors[3].u > 0) ? GPIO_PIN_RESET : GPIO_PIN_SET);
 
 	// PWM
 	__HAL_TIM_SET_COMPARE(&htim12, TIM_CHANNEL_1, int(fabs(motors[0].u) * 3200));
