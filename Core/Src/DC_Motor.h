@@ -18,6 +18,9 @@
 
 #define CAR_RADIUS 0.155
 
+// PWM frequency : 20 kHz (Timer Freq : 128 Mhz)
+#define MOTOR_PWM_PULSE 6400
+
 // Motor 1 :
 // 		ENC : TIM_2
 // 		PWM : TIM_12-CH1 (PB14)
