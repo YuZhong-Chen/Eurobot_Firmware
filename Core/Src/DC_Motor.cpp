@@ -57,10 +57,10 @@ void Motor::UpdatePID() {
 	this->i += this->I * this->error * COUNT_TIME;
 
 	// Limit I in range
-//	if (this->i > this->I_lim)
-//		this->i = this->I_lim;
-//	else if (this->i < 0 - this->I_lim)
-//		this->i = 0 - this->I_lim;
+	if (this->i > this->I_lim)
+		this->i = this->I_lim;
+	else if (this->i < 0 - this->I_lim)
+		this->i = 0 - this->I_lim;
 
 	// Count D
 //	d = this->D * (this->error - this->error_before) / COUNT_TIME;

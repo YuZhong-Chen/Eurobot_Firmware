@@ -84,7 +84,7 @@ private:
 	double Vgoal = 0.;
 
 	// PID controller
-	double I_lim = 40;
+	double I_lim = 1;
 	double P, I, D;
 	double i = 0;
 	double error = 0, error_before = 0;

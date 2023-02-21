@@ -42,9 +42,9 @@ void Omni::UpdateNowCarInfo() {
 	// Unit : m/s , rad/s
 	this->UpdateMotorVnow();
 
-	NowCarInfo.Vx = (motors[3].GetVnow() - motors[1].GetVnow()) / 2.;
-	NowCarInfo.Vy = (motors[0].GetVnow() - motors[2].GetVnow()) / 2.;
-	NowCarInfo.Omega = (motors[0].GetVnow() + motors[1].GetVnow() + motors[2].GetVnow() + motors[3].GetVnow()) * CarRadius;
+	NowCarInfo.Vx = (motors[3].GetVnow() - motors[1].GetVnow()) / 2.0;
+	NowCarInfo.Vy = (motors[0].GetVnow() - motors[2].GetVnow()) / 2.0;
+	NowCarInfo.Omega = (motors[0].GetVnow() + motors[1].GetVnow() + motors[2].GetVnow() + motors[3].GetVnow()) / (CarRadius * 4.0);
 }
 
 // Set all motors' velocity base on Car Vgoal.
