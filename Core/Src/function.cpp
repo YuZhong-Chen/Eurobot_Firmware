@@ -30,12 +30,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		omni.Move();
 
 		// Debug from Live Expressions ( Optional )
-		omni.SetMotorVgoal();
+//		omni.SetMotorVgoal();
+
+		omni.UpdateCarLocation();
 
 		// ROS pub -> Mecanum
 		if (++ROS_CAR_FREQUENCY >= ROS_CAR_PUB_FREQUENCY) {
 			ROS_CAR_FREQUENCY = 0;
-			omni.Get_Car_location();
 			ROS::PubCarVnow();
 		}
 	}

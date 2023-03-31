@@ -13,11 +13,6 @@
 // 4 * Resolution * GearBox * CountTime
 #define RES_Ratio 86.016
 
-// 2 * WheelRadius * 3.14159
-#define ROUND 0.1571
-
-#define CAR_RADIUS 0.155
-
 // PWM frequency : 20 kHz (Timer Freq : 128 Mhz)
 #define MOTOR_PWM_PULSE 6400
 
@@ -48,10 +43,10 @@ public:
 	bool isMove = false;
 
 	// Initialize motor data
-	void Init(short num, TIM_HandleTypeDef *TIM, double P, double I, double D);
+	void Init(short num, TIM_HandleTypeDef *TIM, double P, double I);
 
-	// Count PID value
-	void UpdatePID();
+	// Count PI value
+	void UpdatePI();
 
 	void UpdateVnow();
 
@@ -76,7 +71,7 @@ private:
 	 * For get location to ROS
 	 * */
 	void Record_CNT();
-	void Reset_CNT();
+
 	int32_t continue_CNT = 0;
 	int16_t CNT = 0;
 
@@ -85,13 +80,15 @@ private:
 
 	// PID controller
 	double I_lim = 1;
-	double P, I, D;
+	double P, I;
 	double i = 0;
 	double error = 0, error_before = 0;
 	double prev_u;
 
-	double DC_motor_Vnow[2000];
-	int DC_index = 0;
+	// Collecting data. For matlab.
+	//	double DC_motor_Vnow[2000];
+	//	int DC_index = 0;
+
 };
 
 /**
@@ -103,7 +100,9 @@ private:
  * */
 void Init();
 
-const double CONST_FOR_MOTOR[4] = { ROUND / RES_Ratio, -ROUND / RES_Ratio, ROUND / RES_Ratio, -ROUND / RES_Ratio };
+extern double WheelRadius;
+extern double ROUND;
+extern double CONST_FOR_MOTOR[4];
 
 }
 

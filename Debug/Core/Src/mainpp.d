@@ -32,8 +32,10 @@ Core/Src/mainpp.o: ../Core/Src/mainpp.cpp ../Core/Inc/main.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h \
  ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h \
  ../Core/Src/mainpp.h ../Core/Src/ROS_mainpp.h \
- ../Core/Inc/geometry_msgs/Twist.h ../Core/Inc/ros/msg.h \
- ../Core/Inc/geometry_msgs/Vector3.h ../Core/Src/DebugMode.h \
+ ../Core/Inc/geometry_msgs/Pose.h ../Core/Inc/ros/msg.h \
+ ../Core/Inc/geometry_msgs/Point.h ../Core/Inc/geometry_msgs/Quaternion.h \
+ ../Core/Inc/geometry_msgs/Twist.h ../Core/Inc/geometry_msgs/Vector3.h \
+ ../Core/Inc/std_msgs/Float64.h ../Core/Src/DebugMode.h \
  ../Core/Src/Omni.h ../Core/Src/DC_Motor.h
 ../Core/Inc/main.h:
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h:
@@ -70,9 +72,13 @@ Core/Src/mainpp.o: ../Core/Src/mainpp.cpp ../Core/Inc/main.h \
 ../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h:
 ../Core/Src/mainpp.h:
 ../Core/Src/ROS_mainpp.h:
-../Core/Inc/geometry_msgs/Twist.h:
+../Core/Inc/geometry_msgs/Pose.h:
 ../Core/Inc/ros/msg.h:
+../Core/Inc/geometry_msgs/Point.h:
+../Core/Inc/geometry_msgs/Quaternion.h:
+../Core/Inc/geometry_msgs/Twist.h:
 ../Core/Inc/geometry_msgs/Vector3.h:
+../Core/Inc/std_msgs/Float64.h:
 ../Core/Src/DebugMode.h:
 ../Core/Src/Omni.h:
 ../Core/Src/DC_Motor.h:

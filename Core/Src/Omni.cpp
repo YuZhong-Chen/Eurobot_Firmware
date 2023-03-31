@@ -15,26 +15,30 @@ extern TIM_HandleTypeDef htim15;
 
 Omni omni;
 
+double CAR_RADIUS = 0.134163;
+
 Omni::Omni() {
 }
 
 void Omni::Init() {
-	this->motors[0].Init(0, &htim2, 3.7, 471.0, 0.);
-	this->motors[1].Init(1, &htim5, 3.7, 471.0, 0.);
-	this->motors[2].Init(2, &htim3, 3.7, 471.0, 0.);
-	this->motors[3].Init(3, &htim4, 3.7, 471.0, 0.);
+	this->motors[0].Init(0, &htim2, 3.7, 471.0);
+	this->motors[1].Init(1, &htim5, 3.7, 471.0);
+	this->motors[2].Init(2, &htim3, 3.7, 471.0);
+	this->motors[3].Init(3, &htim4, 3.7, 471.0);
+
+	SetCarRadius(CAR_RADIUS);
 
 	DC_Motor::Init();
 }
 
-void Omni::Get_Car_location() {
+void Omni::UpdateCarLocation() {
 	double m[4];
 	for (int i = 0; i < 4; i++) {
-		m[i] = this->motors[i].MoveDis();
+		m[i] = this->motors[i].MoveDis() / 1000.0;
 	}
-//	NowCarLocation.Vx += -m[1] + m[3];
-//	NowCarLocation.Vy += m[0] - m[2];
-//	NowCarLocation.Omega += (m[0] + m[1] + m[2] + m[3]) / 4. / CarRadius;
+	NowCarLocation.Vx += (m[3] - m[1]) / 2.0;
+	NowCarLocation.Vy += (m[0] - m[2]) / 2.0;
+	NowCarLocation.Omega += (m[0] + m[1] + m[2] + m[3]) / (4.0 * CarRadius);
 }
 
 void Omni::UpdateNowCarInfo() {
@@ -58,7 +62,7 @@ void Omni::SetGoalCarInfo(double Vx, double Vy, double Omega) {
 
 void Omni::Update_PID() {
 	for (int i = 0; i < 4; i++) {
-		this->motors[i].UpdatePID();
+		this->motors[i].UpdatePI();
 	}
 }
 
@@ -93,5 +97,13 @@ void Omni::SetMotorVgoal() {
 
 CAR_INFO Omni::GetNowCarInfo() {
 	return NowCarInfo;
+}
+
+CAR_INFO Omni::GetNowCarLocation() {
+	return NowCarLocation;
+}
+
+void Omni::SetCarRadius(double CarRadius) {
+	this->CarRadius = CarRadius;
 }
 

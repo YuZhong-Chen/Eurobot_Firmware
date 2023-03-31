@@ -24,7 +24,7 @@ public:
 	// Set GoalCarInfo and Update each motor Vgoal.
 	void SetGoalCarInfo(double Vx, double Vy, double Omega);
 
-	void Get_Car_location();
+	void UpdateCarLocation();
 
 	// Update each motor's PID value and set PWM.
 	void Update_PID();
@@ -32,10 +32,14 @@ public:
 	// Move the car
 	void Move();
 
+	void SetCarRadius(double CarRadius);
+
 	// Debug from Live Expressions
 	void SetMotorVgoal();
 
 	CAR_INFO GetNowCarInfo();
+
+	CAR_INFO GetNowCarLocation();
 
 private:
 
@@ -52,9 +56,10 @@ private:
 
 	CAR_INFO NowCarLocation;
 
-	const double CarRadius = CAR_RADIUS;
+	double CarRadius;
 };
 
+extern double CAR_RADIUS;
 extern Omni omni;
 
 #endif /* OMNI_H */

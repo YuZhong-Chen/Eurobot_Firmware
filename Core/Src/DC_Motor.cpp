@@ -16,6 +16,10 @@ extern TIM_HandleTypeDef htim5;
 
 namespace DC_Motor {
 
+double WheelRadius = 0.025;
+double ROUND = 2 * WheelRadius * 3.14159;
+double CONST_FOR_MOTOR[4] = { ROUND / RES_Ratio, -ROUND / RES_Ratio, ROUND / RES_Ratio, -ROUND / RES_Ratio };
+
 void Init() {
 	// Init interrupt for reading encoder's CNT
 	HAL_TIM_Base_Start_IT(&htim13);
@@ -33,16 +37,15 @@ void Init() {
 	HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2); // Motor[3]
 }
 
-void Motor::Init(short num, TIM_HandleTypeDef *TIM, double P, double I, double D) {
+void Motor::Init(short num, TIM_HandleTypeDef *TIM, double P, double I) {
 	this->num = num;
 	this->TIM = TIM;
 	this->P = P;
 	this->I = I;
-	this->D = D;
 }
 
-void Motor::UpdatePID() {
-	double p = 0, d = 0;
+void Motor::UpdatePI() {
+	double p = 0;
 
 	// Record Prev error
 	this->error_before = this->error;
@@ -62,12 +65,8 @@ void Motor::UpdatePID() {
 	else if (this->i < 0 - this->I_lim)
 		this->i = 0 - this->I_lim;
 
-	// Count D
-//	d = this->D * (this->error - this->error_before) / COUNT_TIME;
-	d = 0;
-
-	// Output = P + I + D
-	this->u = (double) p + this->i + d;
+	// Output = P + I
+	this->u = (double) p + this->i;
 //	if (num == 0 && isMove == true)
 //		this->u = 1.0;
 //	else
@@ -113,14 +112,10 @@ void Motor::Record_CNT() {
 	continue_CNT += CNT;
 }
 
-void Motor::Reset_CNT() {
-	continue_CNT = 0;
-}
-
 double Motor::MoveDis() {
 	double dis = continue_CNT * CONST_FOR_MOTOR[num];
 
-	Reset_CNT();
+	continue_CNT = 0;
 
 	return dis;
 }
