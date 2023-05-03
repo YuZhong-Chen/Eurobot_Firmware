@@ -5,6 +5,7 @@
 #include "geometry_msgs/Twist.h"
 #include "std_msgs/Float64.h"
 #include "std_msgs/String.h"
+#include "std_msgs/Bool.h"
 
 #define ROS_CAR_PUB_FREQUENCY 10
 
@@ -19,6 +20,7 @@ void PubCarVnow();
 
 // Subscriber
 void GoalVel_CB(const geometry_msgs::Twist &msg);
+void Start_CB(const std_msgs::Bool &msg);
 void Finish_CB(const std_msgs::String &msg);
 
 #ifdef DEBUGGER_MODE

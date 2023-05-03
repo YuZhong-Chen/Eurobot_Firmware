@@ -9,6 +9,7 @@
 // For ROS::loop
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim12;
+extern TIM_HandleTypeDef htim13;
 extern TIM_HandleTypeDef htim15;
 
 ros::NodeHandle nh;
@@ -18,7 +19,8 @@ static CAR_INFO NowCarInfo;
 static CAR_INFO NowCarLoc;
 
 ros::Subscriber<geometry_msgs::Twist> CarVelSub("cmd_vel", ROS::GoalVel_CB);
-ros::Subscriber<std_msgs::String> FinishSub("mission0", ROS::Finish_CB);
+ros::Subscriber<std_msgs::Bool> StartSub("/startornot", ROS::Start_CB);
+ros::Subscriber<std_msgs::String> FinishSub("/mission0", ROS::Finish_CB);
 
 #ifdef DEBUGGER_MODE
 //ros::Subscriber<geometry_msgs::Pose> DebugCarGoalSub("/STM_Run", ROS::Test_GetGoal_CB);
@@ -30,6 +32,15 @@ ros::Publisher CarVelPub("Toposition", &CarVnow);
 
 void ROS::GoalVel_CB(const geometry_msgs::Twist &msg) {
 	omni.SetGoalCarInfo(msg.linear.x, msg.linear.y, msg.angular.z);
+}
+
+void ROS::Start_CB(const std_msgs::Bool &msg) {
+	if (msg.data == true) {
+		HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_2);
+		HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
+		HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);
+		HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_2);
+	}
 }
 
 void ROS::Finish_CB(const std_msgs::String &msg) {
@@ -80,6 +91,7 @@ void ROS::setup() {
 	nh.initNode();
 
 	nh.subscribe(CarVelSub);
+	nh.subscribe(StartSub);
 	nh.subscribe(FinishSub);
 
 #ifdef DEBUGGER_MODE
