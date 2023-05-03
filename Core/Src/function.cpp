@@ -19,7 +19,6 @@ static int ROS_CAR_FREQUENCY = 0;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	if (htim->Instance == TIM13) {
-
 		// Update Car Vnow
 		omni.UpdateNowCarInfo();
 
